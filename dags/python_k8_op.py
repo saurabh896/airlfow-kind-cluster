@@ -19,7 +19,16 @@ dag = DAG(
 
 role = "helloworld"
 start = DummyOperator(task_id='start', dag=dag)
-
+annotations = {
+                            "vault.hashicorp.com/agent-inject": "true",
+                            "vault.hashicorp.com/agent-pre-populate-only": "true",
+                            "vault.hashicorp.com/role": "basic-secret-role",
+                            "vault.hashicorp.com/agent-inject-secret-helloworld.json": "secret/basic-secret/helloworld",
+                            "vault.hashicorp.com/agent-inject-template-helloworld.json": '''{{ with secret "secret/basic-secret/helloworld" }}
+                                {{ .Data.data | toJSON }}
+                                {{ end }}''', 
+                            "vault.hashicorp.com/tls-skip-verify": "true",
+                          }
 passing = KubernetesPodOperator(namespace='default',
                           image="python:3.6",
                           cmds=["python","-c"],
@@ -29,15 +38,7 @@ passing = KubernetesPodOperator(namespace='default',
                           get_logs=True,
                           dag=dag,
                           arguments=["print('hello world')"],
-                          annotations = {
-                            "vault.hashicorp.com/agent-inject": "true",
-                            "vault.hashicorp.com/agent-pre-populate-only": "true",
-                            "vault.hashicorp.com/role": "basic-secret-role",
-                            "vault.hashicorp.com/agent-inject-secret-helloworld.json": "secret/basic-secret/helloworld",
-                            "vault.hashicorp.com/agent-inject-template-helloworld.json": '''{{ with secret "secret/basic-secret/helloworld" }}
-                                {{ .Data.data | toJSON }}
-                                {{ end }}''', 
-                            "vault.hashicorp.com/tls-skip-verify": "true",
+                          annotations = annotations
                           }
                           )
 
