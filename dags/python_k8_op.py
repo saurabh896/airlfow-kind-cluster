@@ -23,6 +23,11 @@ start = DummyOperator(task_id='start', dag=dag)
 passing = KubernetesPodOperator(namespace='default',
                           image="python:3.6",
                           cmds=["python","-c"],
+                          labels={"foo": "bar"},
+                          name="passing-test",
+                          task_id="passing-task",
+                          get_logs=True,
+                          dag=dag,
                           arguments=["print('hello world')"],
                           annotations= { "vault.hashicorp.com/agent-inject": "true",
                                           "vault.hashicorp.com/tls-skip-verify": "true",
@@ -33,11 +38,6 @@ passing = KubernetesPodOperator(namespace='default',
                                         
                                         {{ end }}'''
                                         }
-                          labels={"foo": "bar"},
-                          name="passing-test",
-                          task_id="passing-task",
-                          get_logs=True,
-                          dag=dag
                           )
 
                           
