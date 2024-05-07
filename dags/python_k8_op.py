@@ -33,9 +33,8 @@ passing = KubernetesPodOperator(namespace='default',
                                           "vault.hashicorp.com/tls-skip-verify": "true",
                                           "vault.hashicorp.com/role": "basic-secret-role",
                                         "vault.hashicorp.com/agent-inject-secret-helloworld": "secret/basic-secret/helloworld",
-                                        "vault.hashicorp.com/agent-inject-template-helloworld": '''{{ with secret "secret/basic-secret/helloworld" }}
+                                        "vault.hashicorp.com/agent-inject-template-helloworld": '''{{ with secret "secret/basic-secret/helloworld"''' '''}}
                                             {{ .Data.data | toJSON }}
-                                        
                                         {{ end }}'''
                                         }
                           )
