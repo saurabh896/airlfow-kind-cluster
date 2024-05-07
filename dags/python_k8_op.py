@@ -28,13 +28,13 @@ annotations = {
                           }
 passing = KubernetesPodOperator(namespace='default',
                           image="python:3.6",
-                          cmds=["python","-c"],
+                          cmds=["sleep"],
                           labels={"python": "bar"},
                           name="passing-test",
                           task_id="passing-task",
                           get_logs=True,
                           dag=dag,
-                          arguments=["print('hello world')"],
+                          arguments=["150"],
                           annotations = annotations
                           
                           )
