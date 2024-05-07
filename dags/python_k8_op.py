@@ -32,7 +32,7 @@ passing = KubernetesPodOperator(namespace='default',
                           annotations= { "vault.hashicorp.com/agent-inject": "true",
                                           "vault.hashicorp.com/tls-skip-verify": "true",
                                           "vault.hashicorp.com/role": "basic-secret-role"
-                                         }                                        }
+                                         }                                        
                           )
 
                           
