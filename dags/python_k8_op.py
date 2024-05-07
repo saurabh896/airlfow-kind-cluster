@@ -22,8 +22,8 @@ start = DummyOperator(task_id='start', dag=dag)
 
 passing = KubernetesPodOperator(namespace='default',
                           image="python:3.6",
-                          cmds=["sleep","150"],
-                          labels={"python": "-v"},
+                          cmds=["python","-c"],
+                          labels={"python": "bar"},
                           name="passing-test",
                           task_id="passing-task",
                           get_logs=True,
