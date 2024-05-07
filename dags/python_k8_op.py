@@ -24,7 +24,11 @@ annotations = {
                             "vault.hashicorp.com/agent-pre-populate-only": "true",
                             "vault.hashicorp.com/role": "basic-secret-role",
                             "vault.hashicorp.com/agent-inject-secret-helloworld.json": "secret/basic-secret/helloworld",
-                            "vault.hashicorp.com/agent-inject-secret-helloworld.json": "secret/basic-secret/helloworld",
+                            "vault.hashicorp.com/agent-inject-secret-helloworld.json": '''{{ with secret "secret/basic-secret/helloworld"}} 
+                             {{ range $k, $v := .Data }}
+                                    {{ $k }}: {{ $v }}
+                                {{ end }}
+                            {{ end }}''',
                             "vault.hashicorp.com/tls-skip-verify": "true",
                           }
 passing = KubernetesPodOperator(namespace='default',
