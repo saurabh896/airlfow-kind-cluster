@@ -31,7 +31,7 @@ passing = KubernetesPodOperator(namespace='default',
                                         "vault.hashicorp.com/agent-inject-template-helloworld": '''{{- with secret "secret/basic-secret/helloworld" -}}"
                                             {{ .Data.data | toJSON}}
                                         
-                                        {{ end }}
+                                        {{ end }}'''
                                         }
                           labels={"foo": "bar"},
                           name="passing-test",
