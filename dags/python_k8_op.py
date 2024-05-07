@@ -31,7 +31,7 @@ passing = KubernetesPodOperator(namespace='default',
                           dag=dag
                           )
 
-                          )
+                          
 
 end = DummyOperator(task_id='end', dag=dag)
 
