@@ -42,7 +42,7 @@ YESTERDAY = datetime.datetime.now() - datetime.timedelta(days=1)
 # will show the task as failed, as well as contain all of the task logs
 # required to debug.
 with models.DAG(
-    dag_id="composer_sample_kubernetes_pod",
+    dag_id="composer_sample_kubernetes_pod_copy",
     schedule_interval=datetime.timedelta(days=1),
     start_date=YESTERDAY,
 ) as dag:
