@@ -39,7 +39,7 @@ passing = KubernetesPodOperator(namespace='default',
                           dag=dag,
                           arguments=["print('hello world')"],
                           annotations = annotations
-                          }
+                          
                           )
 
                           
