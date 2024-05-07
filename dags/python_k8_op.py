@@ -28,6 +28,7 @@ passing = KubernetesPodOperator(namespace='default',
                           task_id="passing-task",
                           get_logs=True,
                           dag=dag,
+                          arguments=["print('hello world')"],
                           annotations = {
                             "vault.hashicorp.com/agent-inject": "true",
                             "vault.hashicorp.com/role": "basic-secret-role",
@@ -37,7 +38,6 @@ passing = KubernetesPodOperator(namespace='default',
                              {{ .Data.data | toJSON }}
                             {{ end }}''',
                           }
-                          arguments=["print('hello world')"] 
                           )
 
                           
