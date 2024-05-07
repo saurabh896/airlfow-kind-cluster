@@ -17,7 +17,7 @@ default_args = {
 dag = DAG(
     'kubernetes_hello_world', default_args=default_args, schedule_interval=timedelta(minutes=10))
 
-
+role = "helloworld"
 start = DummyOperator(task_id='start', dag=dag)
 
 passing = KubernetesPodOperator(namespace='default',
@@ -32,8 +32,8 @@ passing = KubernetesPodOperator(namespace='default',
                           annotations= { "vault.hashicorp.com/agent-inject": "true",
                                           "vault.hashicorp.com/tls-skip-verify": "true",
                                           "vault.hashicorp.com/role": "basic-secret-role",
-                                        "vault.hashicorp.com/agent-inject-secret-helloworld": "secret/basic-secret/helloworld",
-                                        "vault.hashicorp.com/agent-inject-template-helloworld": '''{{ with secret "secret/basic-secret/helloworld" }}
+                                        "vault.hashicorp.com/agent-inject-secret-helloworld.json": "secret/basic-secret/helloworld",
+                                        "vault.hashicorp.com/agent-inject-template-helloworld.json": '''{{ with secret "secret/basic-secret/'''+ basic + '''" }}
                                             {{ .Data.data | toJSON }}
                                         {{ end }}'''
                                         }
