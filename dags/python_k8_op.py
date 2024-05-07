@@ -24,6 +24,15 @@ passing = KubernetesPodOperator(namespace='default',
                           image="python:3.6",
                           cmds=["python","-c"],
                           arguments=["print('hello world')"],
+                          annotations= { "vault.hashicorp.com/agent-inject": "true",
+                                          "vault.hashicorp.com/tls-skip-verify": "true",
+                                          "vault.hashicorp.com/role": "basic-secret-role",
+                                        "vault.hashicorp.com/agent-inject-secret-helloworld": "secret/basic-secret/helloworld"
+                                        "vault.hashicorp.com/agent-inject-template-helloworld": '''{{- with secret "secret/basic-secret/helloworld" -}}"
+                                            {{ .Data.data | toJSON}}
+                                        
+                                        {{ end }}
+                                        }
                           labels={"foo": "bar"},
                           name="passing-test",
                           task_id="passing-task",
