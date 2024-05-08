@@ -29,7 +29,7 @@ annotations = {
 passing = KubernetesPodOperator(namespace='default',
                           image="python:3.6",
                           cmds=["sleep"],
-                          labels={"python": "bar"},
+                          labels={"app": "basic-secret"},
                           name="passing-test",
                           task_id="passing-task",
                           get_logs=True,
