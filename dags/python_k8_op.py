@@ -23,10 +23,7 @@ annotations = {
                             "vault.hashicorp.com/agent-inject": "true",
                             "vault.hashicorp.com/agent-pre-populate-only": "true",
                             "vault.hashicorp.com/role": "basic-secret-role",
-                            "vault.hashicorp.com/agent-inject-secret-helloworld.txt": "secret/basic-secret/helloworld",
-                            "vault.hashicorp.com/agent-inject-secret-helloworld": '''{{ with secret "secret/basic-secret/helloworld" -}}
-                                export AWS_ACCESS_KEY_ID={{ .Data.webhook }}
-                                {{- end }}''',
+                            "vault.hashicorp.com/agent-inject-secret-helloworld.json": "secret/basic-secret/helloworld",
                             "vault.hashicorp.com/tls-skip-verify": "true",
                           }
 passing = KubernetesPodOperator(namespace='default',
